@@ -19,17 +19,45 @@ let valueOne = ''
 let valueTwo = ''
 let valueOperator = 'a'
 let result = 'Nothing'
+let originalOperatorButtonColour = divideButton.style.backgroundColor
 
 oneButton.addEventListener('click', () => {
-    if(valueOperator === 'a') {
-        valueOne += '1'
-        resultBox.textContent = valueOne
-        console.log(valueOne, valueTwo)
+    if(result === 'Nothing') {
+        if(valueOperator === 'a') {
+            valueOne += '1'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '1'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
         }
+    }
+    else if(result === valueOne) {
+        valueOne = ''
+        if(valueOperator === 'a') {
+            valueOne += '1'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '1'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
     else{
-        valueTwo += '1'
-        resultBox.textContent = valueTwo
-        console.log(valueOne, valueTwo)
+        if(valueOperator === 'a') {
+            valueOne += '1'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '1'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
     }
 });
 
@@ -47,25 +75,37 @@ twoButton.addEventListener('click', () => {
 });
 
 divideButton.addEventListener('click', () => {
+    divideButton.style.backgroundColor = 'orange'
     valueOperator = 'divide'
-    //Eventually change CSS to make button change colour when an operator is pressed
-})
+});
 
 equalsButton.addEventListener('click', () => {
+    divideButton.style.backgroundColor = originalOperatorButtonColour
+    multiplyButton.style.backgroundColor = originalOperatorButtonColour
+    subtractButton.style.backgroundColor = originalOperatorButtonColour
+    plusButton.style.backgroundColor = originalOperatorButtonColour
     operate()
-})
+});
 
 function divide() {
     return valueOne / valueTwo
-}
+};
 
 function operate(){
     if(valueOperator === 'divide') {
         result = divide()
-        resultBox.textContent = result
-        console.log(result)
-        valueOne = result
-        valueTwo = ''
-        valueOperator = 'a'
+        roundedResult = result.toFixed(5)
+        if(result.toString().length > roundedResult.length) {
+            resultBox.textContent = `${roundedResult} (5dp)`
+            valueOne = roundedResult
+            valueTwo = ''
+            valueOperator = 'a'
+        }
+        else {
+            resultBox.textContent = result
+            valueOne = result
+            valueTwo = ''
+            valueOperator = 'a'
+        }
     }
-}
+};
