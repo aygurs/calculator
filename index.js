@@ -84,7 +84,16 @@ equalsButton.addEventListener('click', () => {
     multiplyButton.style.backgroundColor = originalOperatorButtonColour
     subtractButton.style.backgroundColor = originalOperatorButtonColour
     plusButton.style.backgroundColor = originalOperatorButtonColour
-    operate()
+    if(valueOne === '' || valueTwo === '' || valueOperator === 'a'){
+        resultBox.textContent = 'Error. Please try again.'
+        valueOne = ''
+        valueTwo = ''
+        valueOperator = 'a'
+
+    }
+    else {
+        operate()
+    }
 });
 
 function divide() {
