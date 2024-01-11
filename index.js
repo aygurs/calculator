@@ -20,7 +20,7 @@ const subtractButton = document.querySelector('#subtract');
 const plusButton = document.querySelector('#plus');
 const equalsButton = document.querySelector('#equals');
 const clearButton = document.querySelector('#clear');
-const deletesButton = document.querySelector('#delete');
+const deleteButton = document.querySelector('#delete');
 
 let valueOne = ''
 let valueTwo = ''
@@ -130,6 +130,36 @@ clearButton.addEventListener('click', () => {
     result = 'Nothing'
     resultBox.textContent = 0
 
+})
+
+deleteButton.addEventListener('click', () => {
+    // If no operator has been selected, this block of code will apply to the first value.
+    if(valueOperator === 'None') {
+        // If only one number has been pressed, the value will wipe clean but will display 0.
+        if(valueOne.toString().length === 1) {
+            valueOne = ''
+            resultBox.textContent = 0
+            console.log(valueOne)
+        }
+        // If it is more than one number long, it will delete the end number each time.
+        else {
+            valueOne = valueOne.slice(0, -1)
+            resultBox.textContent = valueOne
+            console.log(valueOne)
+        }
+    }
+    else {
+        if(valueTwo.toString().length === 1) {
+            valueTwo = ''
+            resultBox.textContent = 0
+            console.log(valueTwo)
+        }
+        else {
+            valueTwo = valueTwo.slice(0, -1)
+            resultBox.textContent = valueTwo
+            console.log(valueTwo)
+        }
+    }
 })
 
 function divide() {
