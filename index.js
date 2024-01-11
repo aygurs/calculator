@@ -19,6 +19,8 @@ const multiplyButton = document.querySelector('#multiply');
 const subtractButton = document.querySelector('#subtract');
 const plusButton = document.querySelector('#plus');
 const equalsButton = document.querySelector('#equals');
+const clearButton = document.querySelector('#clear');
+const deletesButton = document.querySelector('#delete');
 
 let valueOne = ''
 let valueTwo = ''
@@ -120,6 +122,15 @@ equalsButton.addEventListener('click', () => {
         operate()
     }
 });
+
+clearButton.addEventListener('click', () => {
+    valueOne = ''
+    valueTwo = ''
+    valueOperator = 'None'
+    result = 'Nothing'
+    resultBox.textContent = 0
+
+})
 
 function divide() {
     return valueOne / valueTwo
