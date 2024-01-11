@@ -1,6 +1,4 @@
-// Add a small box above results to show calculation so far
-// Clear button
-// Decimal button
+// allow a user to press decimal without a number in front and it be percieved as 0.
 
 const resultBox = document.querySelector('#resultBox')
 const oneButton = document.querySelector('#one');
@@ -47,7 +45,7 @@ oneButton.addEventListener('click', () => {
     }
     /* If a user presses a number after having done a calculation, the first value will
     reset so the user is able to perform a new calculation */
-    else if(result === valueOne) {
+    else if(result === valueOne && valueOperator === 'None') {
         valueOne = ''
         if(valueOperator === 'None') {
             valueOne += '1'
@@ -76,15 +74,42 @@ oneButton.addEventListener('click', () => {
 });
 
 twoButton.addEventListener('click', () => {
-    if(valueOperator === 'None') {
-        valueOne += '2'
-        resultBox.textContent = valueOne
-        console.log(valueOne, valueTwo)
+    if(result === 'Nothing') {
+        if(valueOperator === 'None') {
+            valueOne += '2'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '2'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
         }
+    }
+    else if(result === valueOne && valueOperator === 'None') {
+        valueOne = ''
+        if(valueOperator === 'None') {
+            valueOne += '2'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '2'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
     else{
-        valueTwo += '2'
-        resultBox.textContent = valueTwo
-        console.log(valueOne, valueTwo)
+        if(valueOperator === 'None') {
+            valueOne += '2'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '2'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
     }
 });
 
@@ -112,10 +137,12 @@ equalsButton.addEventListener('click', () => {
     subtractButton.style.backgroundColor = originalOperatorButtonColour
     plusButton.style.backgroundColor = originalOperatorButtonColour
     if(valueOne === '' || valueTwo === '' || valueOperator === 'None'){
+        console.log(valueOne, valueTwo)
         resultBox.textContent = 'Error. Please try again.'
         valueOne = ''
         valueTwo = ''
         valueOperator = 'None'
+
 
     }
     else {
@@ -175,6 +202,7 @@ function operate(){
             valueOne = roundedResult
             valueTwo = ''
             valueOperator = 'None'
+            console.log(valueOne, valueTwo)
         }
         else {
             resultBox.textContent = result
@@ -183,6 +211,7 @@ function operate(){
             valueOne = result
             valueTwo = ''
             valueOperator = 'None'
+            console.log(valueOne, valueTwo)
         }
     }
 };
