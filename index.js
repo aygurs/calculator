@@ -1,3 +1,7 @@
+// Add a small box above results to show calculation so far
+// Clear button
+// Decimal button
+
 const resultBox = document.querySelector('#resultBox')
 const oneButton = document.querySelector('#one');
 const twoButton = document.querySelector('#two');
@@ -9,6 +13,7 @@ const sevenButton = document.querySelector('#seven');
 const eightButton = document.querySelector('#eight');
 const nineButton = document.querySelector('#nine');
 const zeroButton = document.querySelector('#zero');
+const decimalButton = document.querySelector('#decimal')
 const divideButton = document.querySelector('#divide');
 const multiplyButton = document.querySelector('#multiply');
 const subtractButton = document.querySelector('#subtract');
@@ -17,26 +22,32 @@ const equalsButton = document.querySelector('#equals');
 
 let valueOne = ''
 let valueTwo = ''
-let valueOperator = 'a'
+let valueOperator = 'None'
 let result = 'Nothing'
 let originalOperatorButtonColour = divideButton.style.backgroundColor
 
 oneButton.addEventListener('click', () => {
+    // If no calculation has yet been performed, this code block will run.
     if(result === 'Nothing') {
-        if(valueOperator === 'a') {
+        /* If no operator has been pressed, this code block will run and the value will count
+        as the first number. */
+        if(valueOperator === 'None') {
             valueOne += '1'
             resultBox.textContent = valueOne
             console.log(valueOne, valueTwo)
             }
+        // If an operator has been pressed, the value is passed to the second number.
         else{
             valueTwo += '1'
             resultBox.textContent = valueTwo
             console.log(valueOne, valueTwo)
         }
     }
+    /* If a user presses a number after having done a calculation, the first value will
+    reset so the user is able to perform a new calculation */
     else if(result === valueOne) {
         valueOne = ''
-        if(valueOperator === 'a') {
+        if(valueOperator === 'None') {
             valueOne += '1'
             resultBox.textContent = valueOne
             console.log(valueOne, valueTwo)
@@ -47,8 +58,9 @@ oneButton.addEventListener('click', () => {
             console.log(valueOne, valueTwo)
         }
     }
+    // This code block will run when the user presses the number more than once.
     else{
-        if(valueOperator === 'a') {
+        if(valueOperator === 'None') {
             valueOne += '1'
             resultBox.textContent = valueOne
             console.log(valueOne, valueTwo)
@@ -62,7 +74,7 @@ oneButton.addEventListener('click', () => {
 });
 
 twoButton.addEventListener('click', () => {
-    if(valueOperator === 'a') {
+    if(valueOperator === 'None') {
         valueOne += '2'
         resultBox.textContent = valueOne
         console.log(valueOne, valueTwo)
@@ -74,6 +86,19 @@ twoButton.addEventListener('click', () => {
     }
 });
 
+decimalButton.addEventListener('click', () => {
+    if(valueOperator === 'None') {
+        valueOne += '.'
+        resultBox.textContent = valueOne
+        console.log(valueOne, valueTwo)
+    }
+    else {
+        valueTwo += '.'
+        resultBox.textContent = valueTwo
+        console.log(valueOne, valueTwo)
+    }
+})
+
 divideButton.addEventListener('click', () => {
     divideButton.style.backgroundColor = 'orange'
     valueOperator = 'divide'
@@ -84,11 +109,11 @@ equalsButton.addEventListener('click', () => {
     multiplyButton.style.backgroundColor = originalOperatorButtonColour
     subtractButton.style.backgroundColor = originalOperatorButtonColour
     plusButton.style.backgroundColor = originalOperatorButtonColour
-    if(valueOne === '' || valueTwo === '' || valueOperator === 'a'){
+    if(valueOne === '' || valueTwo === '' || valueOperator === 'None'){
         resultBox.textContent = 'Error. Please try again.'
         valueOne = ''
         valueTwo = ''
-        valueOperator = 'a'
+        valueOperator = 'None'
 
     }
     else {
@@ -108,13 +133,15 @@ function operate(){
             resultBox.textContent = `${roundedResult} (5dp)`
             valueOne = roundedResult
             valueTwo = ''
-            valueOperator = 'a'
+            valueOperator = 'None'
         }
         else {
             resultBox.textContent = result
+            /* valueOne will be equal to the result after a calculation so the user can perform
+            another calculation with that value if needed. */
             valueOne = result
             valueTwo = ''
-            valueOperator = 'a'
+            valueOperator = 'None'
         }
     }
 };
