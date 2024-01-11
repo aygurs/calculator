@@ -1,5 +1,3 @@
-// allow a user to press decimal without a number in front and it be percieved as 0.
-
 const resultBox = document.querySelector('#resultBox')
 const oneButton = document.querySelector('#one');
 const twoButton = document.querySelector('#two');
@@ -115,16 +113,32 @@ twoButton.addEventListener('click', () => {
 
 decimalButton.addEventListener('click', () => {
     if(valueOperator === 'None') {
-        valueOne += '.'
-        resultBox.textContent = valueOne
-        console.log(valueOne, valueTwo)
+        /* Allows a user to press decimal without having a number before the decimal as a
+        shortcut for '0.' */
+        if(valueOne === '') {
+            valueOne += '0.'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+        }
+        else {
+            valueOne += '.'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+        }
     }
     else {
-        valueTwo += '.'
-        resultBox.textContent = valueTwo
-        console.log(valueOne, valueTwo)
+        if(valueTwo === '') {
+            valueOne += '0.'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+        }
+        else {
+            valueTwo += '.'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
     }
-})
+});
 
 divideButton.addEventListener('click', () => {
     divideButton.style.backgroundColor = 'orange'
@@ -157,7 +171,7 @@ clearButton.addEventListener('click', () => {
     result = 'Nothing'
     resultBox.textContent = 0
 
-})
+});
 
 deleteButton.addEventListener('click', () => {
     // If no operator has been selected, this block of code will apply to the first value.
@@ -187,7 +201,7 @@ deleteButton.addEventListener('click', () => {
             console.log(valueTwo)
         }
     }
-})
+});
 
 function divide() {
     return valueOne / valueTwo
