@@ -1,5 +1,8 @@
 /* Make it so the user can press another operator after pressing one if they want to change
 the operator */
+// Potentially make it so the previous operation is repeated if the user presses equals again
+// Add a limit to how many numbers can be pressed maybe make its own function for checking
+// Check if result is also too long not just if decimal is too long
 
 const resultBox = document.querySelector('#resultBox')
 const oneButton = document.querySelector('#one');
@@ -114,6 +117,286 @@ twoButton.addEventListener('click', () => {
     }
 });
 
+threeButton.addEventListener('click', () => {
+    if(result === 'Nothing') {
+        if(valueOperator === 'None') {
+            valueOne += '3'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '3'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else if(result === valueOne && valueOperator === 'None') {
+        valueOne = ''
+        if(valueOperator === 'None') {
+            valueOne += '3'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '3'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else{
+        if(valueOperator === 'None') {
+            valueOne += '3'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '3'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+});
+
+fourButton.addEventListener('click', () => {
+    if(result === 'Nothing') {
+        if(valueOperator === 'None') {
+            valueOne += '4'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '4'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else if(result === valueOne && valueOperator === 'None') {
+        valueOne = ''
+        if(valueOperator === 'None') {
+            valueOne += '4'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '4'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else{
+        if(valueOperator === 'None') {
+            valueOne += '4'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '4'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+});
+
+fiveButton.addEventListener('click', () => {
+    if(result === 'Nothing') {
+        if(valueOperator === 'None') {
+            valueOne += '5'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '5'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else if(result === valueOne && valueOperator === 'None') {
+        valueOne = ''
+        if(valueOperator === 'None') {
+            valueOne += '5'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '5'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else{
+        if(valueOperator === 'None') {
+            valueOne += '5'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '5'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+});
+
+sixButton.addEventListener('click', () => {
+    if(result === 'Nothing') {
+        if(valueOperator === 'None') {
+            valueOne += '6'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '6'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else if(result === valueOne && valueOperator === 'None') {
+        valueOne = ''
+        if(valueOperator === 'None') {
+            valueOne += '6'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '6'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else{
+        if(valueOperator === 'None') {
+            valueOne += '6'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '6'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+});
+
+sevenButton.addEventListener('click', () => {
+    if(result === 'Nothing') {
+        if(valueOperator === 'None') {
+            valueOne += '7'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '7'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else if(result === valueOne && valueOperator === 'None') {
+        valueOne = ''
+        if(valueOperator === 'None') {
+            valueOne += '7'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '7'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else{
+        if(valueOperator === 'None') {
+            valueOne += '7'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '7'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+});
+
+eightButton.addEventListener('click', () => {
+    if(result === 'Nothing') {
+        if(valueOperator === 'None') {
+            valueOne += '8'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '8'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else if(result === valueOne && valueOperator === 'None') {
+        valueOne = ''
+        if(valueOperator === 'None') {
+            valueOne += '8'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '8'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else{
+        if(valueOperator === 'None') {
+            valueOne += '8'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '8'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+});
+
+nineButton.addEventListener('click', () => {
+    if(result === 'Nothing') {
+        if(valueOperator === 'None') {
+            valueOne += '9'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '9'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else if(result === valueOne && valueOperator === 'None') {
+        valueOne = ''
+        if(valueOperator === 'None') {
+            valueOne += '9'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '9'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else{
+        if(valueOperator === 'None') {
+            valueOne += '9'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '9'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+});
+
 zeroButton.addEventListener('click', () => {
     if(result === 'Nothing') {
         if(valueOperator === 'None') {
@@ -188,6 +471,11 @@ divideButton.addEventListener('click', () => {
     valueOperator = 'divide'
 });
 
+multiplyButton.addEventListener('click', () => {
+    multiplyButton.style.backgroundColor = 'orange'
+    valueOperator = 'multiply'
+});
+
 equalsButton.addEventListener('click', () => {
     divideButton.style.backgroundColor = originalOperatorButtonColour
     multiplyButton.style.backgroundColor = originalOperatorButtonColour
@@ -199,8 +487,6 @@ equalsButton.addEventListener('click', () => {
         valueOne = ''
         valueTwo = ''
         valueOperator = 'None'
-
-
     }
     else {
         operate()
@@ -251,6 +537,18 @@ function divide() {
     return valueOne / valueTwo
 };
 
+function multiply() {
+    return valueOne * valueTwo
+};
+
+function subtract() {
+    return valueOne - valueTwo
+};
+
+function plus() {
+    return valueOne + valueTwo
+};
+
 function operate(){
     if(valueOperator === 'divide') {
         result = divide()
@@ -263,6 +561,27 @@ function operate(){
             valueOperator = 'None'
         }
         else if(result.toString().length > roundedResult.length) {
+            resultBox.textContent = `${roundedResult} (5dp)`
+            valueOne = roundedResult
+            valueTwo = ''
+            valueOperator = 'None'
+            console.log(valueOne, valueTwo)
+        }
+        else {
+            resultBox.textContent = result
+            /* valueOne will be equal to the result after a calculation so the user can perform
+            another calculation with that value if needed. */
+            valueOne = result
+            valueTwo = ''
+            valueOperator = 'None'
+            console.log(valueOne, valueTwo)
+        }
+    }
+
+    else if(valueOperator === 'multiply') {
+        result = multiply()
+        roundedResult = result.toFixed(5)
+        if(result.toString().length > roundedResult.length) {
             resultBox.textContent = `${roundedResult} (5dp)`
             valueOne = roundedResult
             valueTwo = ''
