@@ -476,6 +476,16 @@ multiplyButton.addEventListener('click', () => {
     valueOperator = 'multiply'
 });
 
+subtractButton.addEventListener('click', () => {
+    subtractButton.style.backgroundColor = 'orange'
+    valueOperator = 'subtract'
+});
+
+plusButton.addEventListener('click', () => {
+    plusButton.style.backgroundColor = 'orange'
+    valueOperator = 'plus'
+});
+
 equalsButton.addEventListener('click', () => {
     divideButton.style.backgroundColor = originalOperatorButtonColour
     multiplyButton.style.backgroundColor = originalOperatorButtonColour
@@ -534,19 +544,19 @@ deleteButton.addEventListener('click', () => {
 });
 
 function divide() {
-    return valueOne / valueTwo
+    return Number(valueOne) / Number(valueTwo)
 };
 
 function multiply() {
-    return valueOne * valueTwo
+    return Number(valueOne) * Number(valueTwo)
 };
 
 function subtract() {
-    return valueOne - valueTwo
+    return Number(valueOne) - Number(valueTwo)
 };
 
 function plus() {
-    return valueOne + valueTwo
+    return Number(valueOne) + Number(valueTwo)
 };
 
 function operate(){
@@ -590,8 +600,43 @@ function operate(){
         }
         else {
             resultBox.textContent = result
-            /* valueOne will be equal to the result after a calculation so the user can perform
-            another calculation with that value if needed. */
+            valueOne = result
+            valueTwo = ''
+            valueOperator = 'None'
+            console.log(valueOne, valueTwo)
+        }
+    }
+
+    else if(valueOperator === 'subtract') {
+        result = subtract()
+        roundedResult = result.toFixed(5)
+        if(result.toString().length > roundedResult.length) {
+            resultBox.textContent = `${roundedResult} (5dp)`
+            valueOne = roundedResult
+            valueTwo = ''
+            valueOperator = 'None'
+            console.log(valueOne, valueTwo)
+        }
+        else {
+            resultBox.textContent = result
+            valueOne = result
+            valueTwo = ''
+            valueOperator = 'None'
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else if(valueOperator === 'plus') {
+        result = plus()
+        roundedResult = result.toFixed(5)
+        if(result.toString().length > roundedResult.length) {
+            resultBox.textContent = `${roundedResult} (5dp)`
+            valueOne = roundedResult
+            valueTwo = ''
+            valueOperator = 'None'
+            console.log(valueOne, valueTwo)
+        }
+        else {
+            resultBox.textContent = result
             valueOne = result
             valueTwo = ''
             valueOperator = 'None'
