@@ -1,3 +1,6 @@
+/* Make it so the user can press another operator after pressing one if they want to change
+the operator */
+
 const resultBox = document.querySelector('#resultBox')
 const oneButton = document.querySelector('#one');
 const twoButton = document.querySelector('#two');
@@ -111,6 +114,46 @@ twoButton.addEventListener('click', () => {
     }
 });
 
+zeroButton.addEventListener('click', () => {
+    if(result === 'Nothing') {
+        if(valueOperator === 'None') {
+            valueOne += '0'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '0'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else if(result === valueOne && valueOperator === 'None') {
+        valueOne = ''
+        if(valueOperator === 'None') {
+            valueOne += '0'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '0'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+    else{
+        if(valueOperator === 'None') {
+            valueOne += '0'
+            resultBox.textContent = valueOne
+            console.log(valueOne, valueTwo)
+            }
+        else{
+            valueTwo += '0'
+            resultBox.textContent = valueTwo
+            console.log(valueOne, valueTwo)
+        }
+    }
+});
+
 decimalButton.addEventListener('click', () => {
     if(valueOperator === 'None') {
         /* Allows a user to press decimal without having a number before the decimal as a
@@ -170,6 +213,7 @@ clearButton.addEventListener('click', () => {
     valueOperator = 'None'
     result = 'Nothing'
     resultBox.textContent = 0
+    console.log(valueOne, valueTwo, valueOperator, result)
 
 });
 
@@ -211,7 +255,14 @@ function operate(){
     if(valueOperator === 'divide') {
         result = divide()
         roundedResult = result.toFixed(5)
-        if(result.toString().length > roundedResult.length) {
+        // If a user divides by 0 they will get a snarky comment
+        if(valueOne == 0 || valueTwo == 0) {
+            resultBox.textContent = 'What do you think lol'
+            valueOne = result
+            valueTwo = ''
+            valueOperator = 'None'
+        }
+        else if(result.toString().length > roundedResult.length) {
             resultBox.textContent = `${roundedResult} (5dp)`
             valueOne = roundedResult
             valueTwo = ''
