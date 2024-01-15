@@ -467,23 +467,63 @@ decimalButton.addEventListener('click', () => {
 });
 
 divideButton.addEventListener('click', () => {
-    divideButton.style.backgroundColor = 'orange'
-    valueOperator = 'divide'
+    if(valueOperator !== 'None') {
+        divideButton.style.backgroundColor = originalOperatorButtonColour
+        multiplyButton.style.backgroundColor = originalOperatorButtonColour
+        subtractButton.style.backgroundColor = originalOperatorButtonColour
+        plusButton.style.backgroundColor = originalOperatorButtonColour
+        divideButton.style.backgroundColor = 'orange'
+        valueOperator = 'divide'
+    }
+    else {
+        divideButton.style.backgroundColor = 'orange'
+        valueOperator = 'divide'
+    }
 });
 
 multiplyButton.addEventListener('click', () => {
-    multiplyButton.style.backgroundColor = 'orange'
-    valueOperator = 'multiply'
+    if(valueOperator !== 'None') {
+        divideButton.style.backgroundColor = originalOperatorButtonColour
+        multiplyButton.style.backgroundColor = originalOperatorButtonColour
+        subtractButton.style.backgroundColor = originalOperatorButtonColour
+        plusButton.style.backgroundColor = originalOperatorButtonColour
+        multiplyButton.style.backgroundColor = 'orange'
+        valueOperator = 'multiply'
+    }
+    else {
+        multiplyButton.style.backgroundColor = 'orange'
+        valueOperator = 'multiply'
+    }
 });
 
 subtractButton.addEventListener('click', () => {
-    subtractButton.style.backgroundColor = 'orange'
-    valueOperator = 'subtract'
+    if(valueOperator !== 'None') {
+        divideButton.style.backgroundColor = originalOperatorButtonColour
+        multiplyButton.style.backgroundColor = originalOperatorButtonColour
+        subtractButton.style.backgroundColor = originalOperatorButtonColour
+        plusButton.style.backgroundColor = originalOperatorButtonColour
+        subtractButton.style.backgroundColor = 'orange'
+        valueOperator = 'subtract'
+    }
+    else {
+        subtractButton.style.backgroundColor = 'orange'
+        valueOperator = 'subtract'
+    }
 });
 
 plusButton.addEventListener('click', () => {
-    plusButton.style.backgroundColor = 'orange'
-    valueOperator = 'plus'
+    if(valueOperator !== 'None') {
+        divideButton.style.backgroundColor = originalOperatorButtonColour
+        multiplyButton.style.backgroundColor = originalOperatorButtonColour
+        subtractButton.style.backgroundColor = originalOperatorButtonColour
+        plusButton.style.backgroundColor = originalOperatorButtonColour
+        plusButton.style.backgroundColor = 'orange'
+        valueOperator = 'plus'
+    }
+    else {
+        plusButton.style.backgroundColor = 'orange'
+        valueOperator = 'plus'
+    }
 });
 
 equalsButton.addEventListener('click', () => {
