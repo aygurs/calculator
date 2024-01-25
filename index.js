@@ -1,8 +1,6 @@
-/* Make it so the user can press another operator after pressing one if they want to change
-the operator */
-// Potentially make it so the previous operation is repeated if the user presses equals again
 // Add a limit to how many numbers can be pressed maybe make its own function for checking
 // Check if result is also too long not just if decimal is too long
+// if a second number has already been pressed, dont allow another operator to be pressed
 
 const resultBox = document.querySelector('#resultBox')
 const oneButton = document.querySelector('#one');
@@ -29,8 +27,14 @@ let valueTwo = ''
 let valueOperator = 'None'
 let result = 'Nothing'
 let originalOperatorButtonColour = divideButton.style.backgroundColor
+// These variables will only be used if the equals button is pressed again AFTER a calculation
+let previousValueOne = ''
+let previousValueTwo = ''
+let previousValueOperator = 'None'
+let previousCalculation = false
 
 oneButton.addEventListener('click', () => {
+    previousCalculation = false
     // If no calculation has yet been performed, this code block will run.
     if(result === 'Nothing') {
         /* If no operator has been pressed, this code block will run and the value will count
@@ -78,6 +82,7 @@ oneButton.addEventListener('click', () => {
 });
 
 twoButton.addEventListener('click', () => {
+    previousCalculation = false
     if(result === 'Nothing') {
         if(valueOperator === 'None') {
             valueOne += '2'
@@ -118,6 +123,7 @@ twoButton.addEventListener('click', () => {
 });
 
 threeButton.addEventListener('click', () => {
+    previousCalculation = false
     if(result === 'Nothing') {
         if(valueOperator === 'None') {
             valueOne += '3'
@@ -158,6 +164,7 @@ threeButton.addEventListener('click', () => {
 });
 
 fourButton.addEventListener('click', () => {
+    previousCalculation = false
     if(result === 'Nothing') {
         if(valueOperator === 'None') {
             valueOne += '4'
@@ -198,6 +205,7 @@ fourButton.addEventListener('click', () => {
 });
 
 fiveButton.addEventListener('click', () => {
+    previousCalculation = false
     if(result === 'Nothing') {
         if(valueOperator === 'None') {
             valueOne += '5'
@@ -238,6 +246,7 @@ fiveButton.addEventListener('click', () => {
 });
 
 sixButton.addEventListener('click', () => {
+    previousCalculation = false
     if(result === 'Nothing') {
         if(valueOperator === 'None') {
             valueOne += '6'
@@ -278,6 +287,7 @@ sixButton.addEventListener('click', () => {
 });
 
 sevenButton.addEventListener('click', () => {
+    previousCalculation = false
     if(result === 'Nothing') {
         if(valueOperator === 'None') {
             valueOne += '7'
@@ -318,6 +328,7 @@ sevenButton.addEventListener('click', () => {
 });
 
 eightButton.addEventListener('click', () => {
+    previousCalculation = false
     if(result === 'Nothing') {
         if(valueOperator === 'None') {
             valueOne += '8'
@@ -358,6 +369,7 @@ eightButton.addEventListener('click', () => {
 });
 
 nineButton.addEventListener('click', () => {
+    previousCalculation = false
     if(result === 'Nothing') {
         if(valueOperator === 'None') {
             valueOne += '9'
@@ -398,6 +410,7 @@ nineButton.addEventListener('click', () => {
 });
 
 zeroButton.addEventListener('click', () => {
+    previousCalculation = false
     if(result === 'Nothing') {
         if(valueOperator === 'None') {
             valueOne += '0'
@@ -438,6 +451,7 @@ zeroButton.addEventListener('click', () => {
 });
 
 decimalButton.addEventListener('click', () => {
+    previousCalculation = false
     if(valueOperator === 'None') {
         /* Allows a user to press decimal without having a number before the decimal as a
         shortcut for '0.' */
@@ -467,6 +481,7 @@ decimalButton.addEventListener('click', () => {
 });
 
 divideButton.addEventListener('click', () => {
+    previousCalculation = false
     if(valueOperator !== 'None') {
         divideButton.style.backgroundColor = originalOperatorButtonColour
         multiplyButton.style.backgroundColor = originalOperatorButtonColour
@@ -482,6 +497,7 @@ divideButton.addEventListener('click', () => {
 });
 
 multiplyButton.addEventListener('click', () => {
+    previousCalculation = false
     if(valueOperator !== 'None') {
         divideButton.style.backgroundColor = originalOperatorButtonColour
         multiplyButton.style.backgroundColor = originalOperatorButtonColour
@@ -497,6 +513,7 @@ multiplyButton.addEventListener('click', () => {
 });
 
 subtractButton.addEventListener('click', () => {
+    previousCalculation = false
     if(valueOperator !== 'None') {
         divideButton.style.backgroundColor = originalOperatorButtonColour
         multiplyButton.style.backgroundColor = originalOperatorButtonColour
@@ -512,6 +529,7 @@ subtractButton.addEventListener('click', () => {
 });
 
 plusButton.addEventListener('click', () => {
+    previousCalculation = false
     if(valueOperator !== 'None') {
         divideButton.style.backgroundColor = originalOperatorButtonColour
         multiplyButton.style.backgroundColor = originalOperatorButtonColour
@@ -531,7 +549,7 @@ equalsButton.addEventListener('click', () => {
     multiplyButton.style.backgroundColor = originalOperatorButtonColour
     subtractButton.style.backgroundColor = originalOperatorButtonColour
     plusButton.style.backgroundColor = originalOperatorButtonColour
-    if(valueOne === '' || valueTwo === '' || valueOperator === 'None'){
+    if((valueOne === '' && previousValueOne === '')|| (valueTwo === '' && previousValueTwo === '') || (valueOperator === 'None' && previousValueOperator === '')){
         console.log(valueOne, valueTwo)
         resultBox.textContent = 'Error. Please try again.'
         valueOne = ''
@@ -544,10 +562,18 @@ equalsButton.addEventListener('click', () => {
 });
 
 clearButton.addEventListener('click', () => {
+    divideButton.style.backgroundColor = originalOperatorButtonColour
+    multiplyButton.style.backgroundColor = originalOperatorButtonColour
+    subtractButton.style.backgroundColor = originalOperatorButtonColour
+    plusButton.style.backgroundColor = originalOperatorButtonColour
     valueOne = ''
     valueTwo = ''
     valueOperator = 'None'
     result = 'Nothing'
+    previousCalculation = false
+    previousValueOne = ''
+    previousValueTwo = ''
+    previousValueOperator = 'None'
     resultBox.textContent = 0
     console.log(valueOne, valueTwo, valueOperator, result)
 
@@ -555,7 +581,7 @@ clearButton.addEventListener('click', () => {
 
 deleteButton.addEventListener('click', () => {
     // If no operator has been selected, this block of code will apply to the first value.
-    if(valueOperator === 'None') {
+    if(valueOperator === 'None' && result === 'Nothing') {
         // If only one number has been pressed, the value will wipe clean but will display 0.
         if(valueOne.toString().length === 1) {
             valueOne = ''
@@ -569,7 +595,7 @@ deleteButton.addEventListener('click', () => {
             console.log(valueOne)
         }
     }
-    else {
+    else if (valueOperator !== 'None' && result === 'Nothing') {
         if(valueTwo.toString().length === 1) {
             valueTwo = ''
             resultBox.textContent = 0
@@ -581,106 +607,272 @@ deleteButton.addEventListener('click', () => {
             console.log(valueTwo)
         }
     }
+    else {
+        /*This is empty because I want delete to do nothing if pressed any other time, for example,
+        after a calculation.*/
+    }
 });
 
 function divide() {
-    return Number(valueOne) / Number(valueTwo)
+    if(previousCalculation === true) {
+        return Number(previousValueOne) / Number(previousValueTwo)
+    }
+    else {
+        return Number(valueOne) / Number(valueTwo)
+    }
 };
 
 function multiply() {
-    return Number(valueOne) * Number(valueTwo)
+    if(previousCalculation === true) {
+        return Number(previousValueOne) * Number(previousValueTwo)
+    }
+    else {
+        return Number(valueOne) * Number(valueTwo)
+    }
 };
 
 function subtract() {
-    return Number(valueOne) - Number(valueTwo)
+    if(previousCalculation === true) {
+        return Number(previousValueOne) - Number(previousValueTwo)
+    }
+    else {
+        return Number(valueOne) - Number(valueTwo)
+    }
 };
 
 function plus() {
-    return Number(valueOne) + Number(valueTwo)
+    if(previousCalculation === true) {
+        return Number(previousValueOne) + Number(previousValueTwo)
+    }
+    else {
+        return Number(valueOne) + Number(valueTwo)
+    }
 };
 
 function operate(){
-    if(valueOperator === 'divide') {
-        result = divide()
-        roundedResult = result.toFixed(5)
-        // If a user divides by 0 they will get a snarky comment
-        if(valueOne == 0 || valueTwo == 0) {
-            resultBox.textContent = 'What do you think lol'
-            valueOne = result
-            valueTwo = ''
-            valueOperator = 'None'
+// This if block is used for if a previous calculation has been performed and equals is pressed
+    if(previousCalculation === true) {
+        if(previousValueOperator === 'divide') {
+            result = divide()
+            roundedResult = result.toFixed(5)
+            if(previousValueOne == 0 || previousValueTwo == 0) {
+                resultBox.textContent = 'What do you think lol'
+                previousCalculation = true
+                previousValueOne = 0
+                valueOne = 0
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else if(result.toString().length > roundedResult.length) {
+                resultBox.textContent = `${roundedResult} (5dp)`
+                previousCalculation = true
+                previousValueOne = result
+                valueOne = roundedResult
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                resultBox.textContent = result
+                previousCalculation = true
+                previousValueOne = result
+                valueOne = result
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
         }
-        else if(result.toString().length > roundedResult.length) {
-            resultBox.textContent = `${roundedResult} (5dp)`
-            valueOne = roundedResult
-            valueTwo = ''
-            valueOperator = 'None'
-            console.log(valueOne, valueTwo)
+    
+        else if(previousValueOperator === 'multiply') {
+            result = multiply()
+            roundedResult = result.toFixed(5)
+            if(result.toString().length > roundedResult.length) {
+                resultBox.textContent = `${roundedResult} (5dp)`
+                previousCalculation = true
+                previousValueOne = result
+                valueOne = roundedResult
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                resultBox.textContent = result
+                previousCalculation = true
+                previousValueOne = result
+                valueOne = result
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
         }
-        else {
-            resultBox.textContent = result
-            /* valueOne will be equal to the result after a calculation so the user can perform
-            another calculation with that value if needed. */
-            valueOne = result
-            valueTwo = ''
-            valueOperator = 'None'
-            console.log(valueOne, valueTwo)
+    
+        else if(previousValueOperator === 'subtract') {
+            result = subtract()
+            roundedResult = result.toFixed(5)
+            if(result.toString().length > roundedResult.length) {
+                resultBox.textContent = `${roundedResult} (5dp)`
+                previousCalculation = true
+                previousValueOne = result
+                valueOne = roundedResult
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                resultBox.textContent = result
+                previousCalculation = true
+                previousValueOne = result
+                valueOne = result
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+        }
+        else if(previousValueOperator === 'plus') {
+            result = plus()
+            roundedResult = result.toFixed(5)
+            if(result.toString().length > roundedResult.length) {
+                resultBox.textContent = `${roundedResult} (5dp)`
+                previousCalculation = true
+                previousValueOne = result
+                valueOne = roundedResult
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                resultBox.textContent = result
+                previousCalculation = true
+                previousValueOne = result
+                valueOne = result
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
         }
     }
-
-    else if(valueOperator === 'multiply') {
-        result = multiply()
-        roundedResult = result.toFixed(5)
-        if(result.toString().length > roundedResult.length) {
-            resultBox.textContent = `${roundedResult} (5dp)`
-            valueOne = roundedResult
-            valueTwo = ''
-            valueOperator = 'None'
-            console.log(valueOne, valueTwo)
+// This block is used for if a user has NOT pressed equals before - therefore no previous calculation
+    else {
+        if(valueOperator === 'divide') {
+            result = divide()
+            roundedResult = result.toFixed(5)
+            // If a user divides by 0 they will get a snarky comment
+            if(valueOne == 0 || valueTwo == 0) {
+                resultBox.textContent = 'What do you think lol'
+                previousCalculation = true
+                previousValueOne = 0
+                previousValueTwo = valueTwo
+                previousValueOperator = valueOperator
+                valueOne = 0
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else if(result.toString().length > roundedResult.length) {
+                resultBox.textContent = `${roundedResult} (5dp)`
+                previousCalculation = true
+                previousValueOne = result
+                previousValueTwo = valueTwo
+                previousValueOperator = valueOperator
+                valueOne = roundedResult
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                resultBox.textContent = result
+                /* valueOne will be equal to the result after a calculation so the user can perform
+                another calculation with that value if needed. */
+                previousCalculation = true
+                previousValueOne = result
+                previousValueTwo = valueTwo
+                previousValueOperator = valueOperator
+                valueOne = result
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
         }
-        else {
-            resultBox.textContent = result
-            valueOne = result
-            valueTwo = ''
-            valueOperator = 'None'
-            console.log(valueOne, valueTwo)
+    
+        else if(valueOperator === 'multiply') {
+            result = multiply()
+            roundedResult = result.toFixed(5)
+            if(result.toString().length > roundedResult.length) {
+                resultBox.textContent = `${roundedResult} (5dp)`
+                previousCalculation = true
+                previousValueOne = result
+                previousValueTwo = valueTwo
+                previousValueOperator = valueOperator
+                valueOne = roundedResult
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                resultBox.textContent = result
+                previousCalculation = true
+                previousValueOne = result
+                previousValueTwo = valueTwo
+                previousValueOperator = valueOperator
+                valueOne = result
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
         }
-    }
-
-    else if(valueOperator === 'subtract') {
-        result = subtract()
-        roundedResult = result.toFixed(5)
-        if(result.toString().length > roundedResult.length) {
-            resultBox.textContent = `${roundedResult} (5dp)`
-            valueOne = roundedResult
-            valueTwo = ''
-            valueOperator = 'None'
-            console.log(valueOne, valueTwo)
+    
+        else if(valueOperator === 'subtract') {
+            result = subtract()
+            roundedResult = result.toFixed(5)
+            if(result.toString().length > roundedResult.length) {
+                resultBox.textContent = `${roundedResult} (5dp)`
+                previousCalculation = true
+                previousValueOne = result
+                previousValueTwo = valueTwo
+                previousValueOperator = valueOperator
+                valueOne = roundedResult
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                resultBox.textContent = result
+                previousCalculation = true
+                previousValueOne = result
+                previousValueTwo = valueTwo
+                previousValueOperator = valueOperator
+                valueOne = result
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
         }
-        else {
-            resultBox.textContent = result
-            valueOne = result
-            valueTwo = ''
-            valueOperator = 'None'
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else if(valueOperator === 'plus') {
-        result = plus()
-        roundedResult = result.toFixed(5)
-        if(result.toString().length > roundedResult.length) {
-            resultBox.textContent = `${roundedResult} (5dp)`
-            valueOne = roundedResult
-            valueTwo = ''
-            valueOperator = 'None'
-            console.log(valueOne, valueTwo)
-        }
-        else {
-            resultBox.textContent = result
-            valueOne = result
-            valueTwo = ''
-            valueOperator = 'None'
-            console.log(valueOne, valueTwo)
+        else if(valueOperator === 'plus') {
+            result = plus()
+            roundedResult = result.toFixed(5)
+            if(result.toString().length > roundedResult.length) {
+                resultBox.textContent = `${roundedResult} (5dp)`
+                previousCalculation = true
+                previousValueOne = result
+                previousValueTwo = valueTwo
+                previousValueOperator = valueOperator
+                valueOne = roundedResult
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                resultBox.textContent = result
+                previousCalculation = true
+                previousValueOne = result
+                previousValueTwo = valueTwo
+                previousValueOperator = valueOperator
+                valueOne = result
+                valueTwo = ''
+                valueOperator = 'None'
+                console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
         }
     }
 };
