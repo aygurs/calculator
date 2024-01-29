@@ -79,17 +79,17 @@ function numberPressed(number) {
     }
 }
 
-function operatorPressed(operator){
+function operatorPressed(operator,operatorButton){
     if(valueOperator !== 'None') {
         divideButton.style.backgroundColor = originalOperatorButtonColour
         multiplyButton.style.backgroundColor = originalOperatorButtonColour
         subtractButton.style.backgroundColor = originalOperatorButtonColour
         plusButton.style.backgroundColor = originalOperatorButtonColour
-        divideButton.style.backgroundColor = 'orange'
+        operatorButton.style.backgroundColor = 'orange'
         valueOperator = operator
     }
     else {
-        divideButton.style.backgroundColor = 'orange'
+        operatorButton.style.backgroundColor = 'orange'
         valueOperator = operator
     }
 }
@@ -176,22 +176,22 @@ decimalButton.addEventListener('click', () => {
 
 divideButton.addEventListener('click', () => {
     previousCalculation = false
-    operatorPressed('divide')
+    operatorPressed('divide', divideButton)
 });
 
 multiplyButton.addEventListener('click', () => {
     previousCalculation = false
-    operatorPressed('multiply')
+    operatorPressed('multiply', multiplyButton)
 });
 
 subtractButton.addEventListener('click', () => {
     previousCalculation = false
-    operatorPressed('subtract')
+    operatorPressed('subtract', subtractButton)
 });
 
 plusButton.addEventListener('click', () => {
     previousCalculation = false
-    operatorPressed('plus')
+    operatorPressed('plus', plusButton)
 });
 
 equalsButton.addEventListener('click', () => {
