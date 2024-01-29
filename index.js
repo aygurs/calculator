@@ -1,6 +1,6 @@
-// Add a limit to how many numbers can be pressed maybe make its own function for checking
 // Check if result is also too long not just if decimal is too long
 // if a second number has already been pressed, dont allow another operator to be pressed
+// Make it so the decimal can only be pressed once and cant be pressed after a result is presented
 
 const resultBox = document.querySelector('#resultBox')
 const oneButton = document.querySelector('#one');
@@ -38,15 +38,20 @@ function numberPressed(number) {
         /* If no operator has been pressed, this code block will run and the value will count
         as the first number. */
         if(valueOperator === 'None') {
-            valueOne += number
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
+            // Does not allow user to press more than 11 numbers (nn billion)
+            if(!(valueOne.toString().length >= 11)) {
+                valueOne += number
+                resultBox.textContent = valueOne
+                console.log(valueOne, valueTwo)
             }
+        }
         // If an operator has been pressed, the value is passed to the second number.
         else{
-            valueTwo += number
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
+            if(!(valueTwo.toString().length >= 11)) {
+                valueTwo += number
+                resultBox.textContent = valueTwo
+                console.log(valueOne, valueTwo)
+            }
         }
     }
     /* If a user presses a number after having done a calculation, the first value will
@@ -67,14 +72,18 @@ function numberPressed(number) {
     // This code block will run when the user presses the number more than once.
     else{
         if(valueOperator === 'None') {
-            valueOne += number
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
+            if(!(valueOne.toString().length >= 11)) {
+                valueOne += number
+                resultBox.textContent = valueOne
+                console.log(valueOne, valueTwo)
             }
+        }
         else{
-            valueTwo += number
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
+            if(!(valueTwo.toString().length >= 11)) {
+                valueTwo += number
+                resultBox.textContent = valueTwo
+                console.log(valueOne, valueTwo)
+            }
         }
     }
 }
