@@ -33,20 +33,18 @@ let previousValueTwo = ''
 let previousValueOperator = 'None'
 let previousCalculation = false
 
-oneButton.addEventListener('click', () => {
-    previousCalculation = false
-    // If no calculation has yet been performed, this code block will run.
+function numberPressed(number) {
     if(result === 'Nothing') {
         /* If no operator has been pressed, this code block will run and the value will count
         as the first number. */
         if(valueOperator === 'None') {
-            valueOne += '1'
+            valueOne += number
             resultBox.textContent = valueOne
             console.log(valueOne, valueTwo)
             }
         // If an operator has been pressed, the value is passed to the second number.
         else{
-            valueTwo += '1'
+            valueTwo += number
             resultBox.textContent = valueTwo
             console.log(valueOne, valueTwo)
         }
@@ -56,12 +54,12 @@ oneButton.addEventListener('click', () => {
     else if(result === valueOne && valueOperator === 'None') {
         valueOne = ''
         if(valueOperator === 'None') {
-            valueOne += '1'
+            valueOne += number
             resultBox.textContent = valueOne
             console.log(valueOne, valueTwo)
             }
         else{
-            valueTwo += '1'
+            valueTwo += number
             resultBox.textContent = valueTwo
             console.log(valueOne, valueTwo)
         }
@@ -69,385 +67,81 @@ oneButton.addEventListener('click', () => {
     // This code block will run when the user presses the number more than once.
     else{
         if(valueOperator === 'None') {
-            valueOne += '1'
+            valueOne += number
             resultBox.textContent = valueOne
             console.log(valueOne, valueTwo)
             }
         else{
-            valueTwo += '1'
+            valueTwo += number
             resultBox.textContent = valueTwo
             console.log(valueOne, valueTwo)
         }
     }
+}
+
+function operatorPressed(operator){
+    if(valueOperator !== 'None') {
+        divideButton.style.backgroundColor = originalOperatorButtonColour
+        multiplyButton.style.backgroundColor = originalOperatorButtonColour
+        subtractButton.style.backgroundColor = originalOperatorButtonColour
+        plusButton.style.backgroundColor = originalOperatorButtonColour
+        divideButton.style.backgroundColor = 'orange'
+        valueOperator = operator
+    }
+    else {
+        divideButton.style.backgroundColor = 'orange'
+        valueOperator = operator
+    }
+}
+
+oneButton.addEventListener('click', () => {
+    previousCalculation = false
+    numberPressed('1')
 });
 
 twoButton.addEventListener('click', () => {
     previousCalculation = false
-    if(result === 'Nothing') {
-        if(valueOperator === 'None') {
-            valueOne += '2'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '2'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else if(result === valueOne && valueOperator === 'None') {
-        valueOne = ''
-        if(valueOperator === 'None') {
-            valueOne += '2'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '2'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else{
-        if(valueOperator === 'None') {
-            valueOne += '2'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '2'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
+    numberPressed('2')
 });
 
 threeButton.addEventListener('click', () => {
     previousCalculation = false
-    if(result === 'Nothing') {
-        if(valueOperator === 'None') {
-            valueOne += '3'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '3'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else if(result === valueOne && valueOperator === 'None') {
-        valueOne = ''
-        if(valueOperator === 'None') {
-            valueOne += '3'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '3'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else{
-        if(valueOperator === 'None') {
-            valueOne += '3'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '3'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
+    numberPressed('3')
 });
 
 fourButton.addEventListener('click', () => {
     previousCalculation = false
-    if(result === 'Nothing') {
-        if(valueOperator === 'None') {
-            valueOne += '4'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '4'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else if(result === valueOne && valueOperator === 'None') {
-        valueOne = ''
-        if(valueOperator === 'None') {
-            valueOne += '4'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '4'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else{
-        if(valueOperator === 'None') {
-            valueOne += '4'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '4'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
+    numberPressed('4')
 });
 
 fiveButton.addEventListener('click', () => {
     previousCalculation = false
-    if(result === 'Nothing') {
-        if(valueOperator === 'None') {
-            valueOne += '5'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '5'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else if(result === valueOne && valueOperator === 'None') {
-        valueOne = ''
-        if(valueOperator === 'None') {
-            valueOne += '5'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '5'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else{
-        if(valueOperator === 'None') {
-            valueOne += '5'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '5'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
+    numberPressed('5')
 });
 
 sixButton.addEventListener('click', () => {
     previousCalculation = false
-    if(result === 'Nothing') {
-        if(valueOperator === 'None') {
-            valueOne += '6'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '6'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else if(result === valueOne && valueOperator === 'None') {
-        valueOne = ''
-        if(valueOperator === 'None') {
-            valueOne += '6'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '6'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else{
-        if(valueOperator === 'None') {
-            valueOne += '6'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '6'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
+    numberPressed('6')
 });
 
 sevenButton.addEventListener('click', () => {
     previousCalculation = false
-    if(result === 'Nothing') {
-        if(valueOperator === 'None') {
-            valueOne += '7'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '7'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else if(result === valueOne && valueOperator === 'None') {
-        valueOne = ''
-        if(valueOperator === 'None') {
-            valueOne += '7'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '7'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else{
-        if(valueOperator === 'None') {
-            valueOne += '7'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '7'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
+    numberPressed('7')
 });
 
 eightButton.addEventListener('click', () => {
     previousCalculation = false
-    if(result === 'Nothing') {
-        if(valueOperator === 'None') {
-            valueOne += '8'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '8'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else if(result === valueOne && valueOperator === 'None') {
-        valueOne = ''
-        if(valueOperator === 'None') {
-            valueOne += '8'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '8'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else{
-        if(valueOperator === 'None') {
-            valueOne += '8'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '8'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
+    numberPressed('8')
 });
 
 nineButton.addEventListener('click', () => {
     previousCalculation = false
-    if(result === 'Nothing') {
-        if(valueOperator === 'None') {
-            valueOne += '9'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '9'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else if(result === valueOne && valueOperator === 'None') {
-        valueOne = ''
-        if(valueOperator === 'None') {
-            valueOne += '9'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '9'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else{
-        if(valueOperator === 'None') {
-            valueOne += '9'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '9'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
+    numberPressed('9')
 });
 
 zeroButton.addEventListener('click', () => {
     previousCalculation = false
-    if(result === 'Nothing') {
-        if(valueOperator === 'None') {
-            valueOne += '0'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '0'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else if(result === valueOne && valueOperator === 'None') {
-        valueOne = ''
-        if(valueOperator === 'None') {
-            valueOne += '0'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '0'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
-    else{
-        if(valueOperator === 'None') {
-            valueOne += '0'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
-            }
-        else{
-            valueTwo += '0'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
-        }
-    }
+    numberPressed('0')
 });
 
 decimalButton.addEventListener('click', () => {
@@ -482,66 +176,22 @@ decimalButton.addEventListener('click', () => {
 
 divideButton.addEventListener('click', () => {
     previousCalculation = false
-    if(valueOperator !== 'None') {
-        divideButton.style.backgroundColor = originalOperatorButtonColour
-        multiplyButton.style.backgroundColor = originalOperatorButtonColour
-        subtractButton.style.backgroundColor = originalOperatorButtonColour
-        plusButton.style.backgroundColor = originalOperatorButtonColour
-        divideButton.style.backgroundColor = 'orange'
-        valueOperator = 'divide'
-    }
-    else {
-        divideButton.style.backgroundColor = 'orange'
-        valueOperator = 'divide'
-    }
+    operatorPressed('divide')
 });
 
 multiplyButton.addEventListener('click', () => {
     previousCalculation = false
-    if(valueOperator !== 'None') {
-        divideButton.style.backgroundColor = originalOperatorButtonColour
-        multiplyButton.style.backgroundColor = originalOperatorButtonColour
-        subtractButton.style.backgroundColor = originalOperatorButtonColour
-        plusButton.style.backgroundColor = originalOperatorButtonColour
-        multiplyButton.style.backgroundColor = 'orange'
-        valueOperator = 'multiply'
-    }
-    else {
-        multiplyButton.style.backgroundColor = 'orange'
-        valueOperator = 'multiply'
-    }
+    operatorPressed('multiply')
 });
 
 subtractButton.addEventListener('click', () => {
     previousCalculation = false
-    if(valueOperator !== 'None') {
-        divideButton.style.backgroundColor = originalOperatorButtonColour
-        multiplyButton.style.backgroundColor = originalOperatorButtonColour
-        subtractButton.style.backgroundColor = originalOperatorButtonColour
-        plusButton.style.backgroundColor = originalOperatorButtonColour
-        subtractButton.style.backgroundColor = 'orange'
-        valueOperator = 'subtract'
-    }
-    else {
-        subtractButton.style.backgroundColor = 'orange'
-        valueOperator = 'subtract'
-    }
+    operatorPressed('subtract')
 });
 
 plusButton.addEventListener('click', () => {
     previousCalculation = false
-    if(valueOperator !== 'None') {
-        divideButton.style.backgroundColor = originalOperatorButtonColour
-        multiplyButton.style.backgroundColor = originalOperatorButtonColour
-        subtractButton.style.backgroundColor = originalOperatorButtonColour
-        plusButton.style.backgroundColor = originalOperatorButtonColour
-        plusButton.style.backgroundColor = 'orange'
-        valueOperator = 'plus'
-    }
-    else {
-        plusButton.style.backgroundColor = 'orange'
-        valueOperator = 'plus'
-    }
+    operatorPressed('plus')
 });
 
 equalsButton.addEventListener('click', () => {
