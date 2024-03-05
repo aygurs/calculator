@@ -27,6 +27,7 @@ let valueTwo = ''
 let valueOperator = 'None'
 let result = 'Nothing'
 let originalOperatorButtonColour = divideButton.style.backgroundColor
+let secondNumberPressed = false
 // These variables will only be used if the equals button is pressed again AFTER a calculation
 let previousValueOne = ''
 let previousValueTwo = ''
@@ -50,6 +51,7 @@ function numberPressed(number) {
             if(!(valueTwo.toString().length >= 11)) {
                 valueTwo += number
                 resultBox.textContent = valueTwo
+                secondNumberPressed = true
                 console.log(valueOne, valueTwo)
             }
         }
@@ -66,6 +68,7 @@ function numberPressed(number) {
         else{
             valueTwo += number
             resultBox.textContent = valueTwo
+            secondNumberPressed = true
             console.log(valueOne, valueTwo)
         }
     }
@@ -82,6 +85,7 @@ function numberPressed(number) {
             if(!(valueTwo.toString().length >= 11)) {
                 valueTwo += number
                 resultBox.textContent = valueTwo
+                secondNumberPressed = true
                 console.log(valueOne, valueTwo)
             }
         }
@@ -184,23 +188,39 @@ decimalButton.addEventListener('click', () => {
 });
 
 divideButton.addEventListener('click', () => {
-    previousCalculation = false
-    operatorPressed('divide', divideButton)
+    if(secondNumberPressed === true) {}
+    else {
+        previousCalculation = false
+        operatorPressed('divide', divideButton)
+    }
+
 });
 
 multiplyButton.addEventListener('click', () => {
-    previousCalculation = false
-    operatorPressed('multiply', multiplyButton)
+    if(secondNumberPressed === true) {}
+    else {
+        previousCalculation = false
+        operatorPressed('multiply', multiplyButton)
+    }
+
 });
 
 subtractButton.addEventListener('click', () => {
-    previousCalculation = false
-    operatorPressed('subtract', subtractButton)
+    if(secondNumberPressed === true) {}
+    else {
+        previousCalculation = false
+        operatorPressed('subtract', subtractButton)
+    }
+
 });
 
 plusButton.addEventListener('click', () => {
-    previousCalculation = false
-    operatorPressed('plus', plusButton)
+    if(secondNumberPressed === true) {}
+    else {
+        previousCalculation = false
+        operatorPressed('plus', plusButton)
+    }
+
 });
 
 equalsButton.addEventListener('click', () => {
@@ -214,8 +234,10 @@ equalsButton.addEventListener('click', () => {
         valueOne = ''
         valueTwo = ''
         valueOperator = 'None'
+        
     }
     else {
+        secondNumberPressed = false
         operate()
     }
 });
