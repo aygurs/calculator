@@ -1,6 +1,4 @@
 // Check if result is also too long not just if decimal is too long
-// if a second number has already been pressed, dont allow another operator to be pressed
-// Make it so the decimal can only be pressed once and cant be pressed after a result is presented
 
 const resultBox = document.querySelector('#resultBox')
 const oneButton = document.querySelector('#one');
@@ -28,6 +26,12 @@ let valueOperator = 'None'
 let result = 'Nothing'
 let originalOperatorButtonColour = divideButton.style.backgroundColor
 let secondNumberPressed = false
+
+/* decimalDisabled stops the decimal being pressed once a result is shown.
+It is only true once equals has been pressed, and is returned to false when an operator or
+number is pressed. */
+let decimalDisabled = false
+
 // These variables will only be used if the equals button is pressed again AFTER a calculation
 let previousValueOne = ''
 let previousValueTwo = ''
@@ -35,6 +39,7 @@ let previousValueOperator = 'None'
 let previousCalculation = false
 
 function numberPressed(number) {
+    decimalDisabled = false
     if(result === 'Nothing') {
         /* If no operator has been pressed, this code block will run and the value will count
         as the first number. */
@@ -93,6 +98,7 @@ function numberPressed(number) {
 }
 
 function operatorPressed(operator,operatorButton){
+    decimalDisabled = false
     if(valueOperator !== 'None') {
         divideButton.style.backgroundColor = originalOperatorButtonColour
         multiplyButton.style.backgroundColor = originalOperatorButtonColour
@@ -100,10 +106,12 @@ function operatorPressed(operator,operatorButton){
         plusButton.style.backgroundColor = originalOperatorButtonColour
         operatorButton.style.backgroundColor = 'orange'
         valueOperator = operator
+        console.log(valueOperator)
     }
     else {
         operatorButton.style.backgroundColor = 'orange'
         valueOperator = operator
+        console.log(valueOperator)
     }
 }
 
@@ -159,30 +167,57 @@ zeroButton.addEventListener('click', () => {
 
 decimalButton.addEventListener('click', () => {
     previousCalculation = false
-    if(valueOperator === 'None') {
-        /* Allows a user to press decimal without having a number before the decimal as a
-        shortcut for '0.' */
-        if(valueOne === '') {
-            valueOne += '0.'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
+    if(decimalDisabled === true) {
+        console.log(1.1, valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+        return
+    }
+    if(valueOne.toString().includes('.') && !valueTwo.toString().includes('.')){
+        if(valueOperator === 'None'){
+            console.log(1, valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            return
         }
         else {
-            valueOne += '.'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
+            if(valueTwo === '') {
+                valueTwo += '0.'
+                resultBox.textContent = valueTwo
+                console.log(2, valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                valueTwo += '.'
+                resultBox.textContent = valueTwo
+                console.log(3, valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
         }
     }
-    else {
-        if(valueTwo === '') {
-            valueOne += '0.'
-            resultBox.textContent = valueOne
-            console.log(valueOne, valueTwo)
+    if(valueTwo.toString().includes('.')) {
+        return
+    }
+    else{
+        if(valueOperator === 'None') {
+            /* Allows a user to press decimal without having a number before the decimal as a
+            shortcut for '0.' */
+            if(valueOne === '') {
+                valueOne += '0.'
+                resultBox.textContent = valueOne
+                console.log(4, valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                valueOne += '.'
+                resultBox.textContent = valueOne
+                console.log(5, valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
         }
         else {
-            valueTwo += '.'
-            resultBox.textContent = valueTwo
-            console.log(valueOne, valueTwo)
+            if(valueTwo === '') {
+                valueTwo += '0.'
+                resultBox.textContent = valueTwo
+                console.log(6, valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
+            else {
+                valueTwo += '.'
+                resultBox.textContent = valueTwo
+                console.log(7, valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
+            }
         }
     }
 });
@@ -224,6 +259,7 @@ plusButton.addEventListener('click', () => {
 });
 
 equalsButton.addEventListener('click', () => {
+    decimalDisabled = true
     divideButton.style.backgroundColor = originalOperatorButtonColour
     multiplyButton.style.backgroundColor = originalOperatorButtonColour
     subtractButton.style.backgroundColor = originalOperatorButtonColour
@@ -335,9 +371,11 @@ function operate(){
     if(previousCalculation === true) {
         if(previousValueOperator === 'divide') {
             result = divide()
-            roundedResult = result.toFixed(5)
+            rounded = result.toFixed(5)
+            roundedResult = Number(rounded)
+            const decimalPlace = ((roundedResult.toString().length) - 2) <= 0 ? 0 : (roundedResult.toString().length) - 2
             if(previousValueOne == 0 || previousValueTwo == 0) {
-                resultBox.textContent = 'What do you think lol'
+                resultBox.textContent = '0, duh'
                 previousCalculation = true
                 previousValueOne = 0
                 valueOne = 0
@@ -345,8 +383,8 @@ function operate(){
                 valueOperator = 'None'
                 console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
             }
-            else if(result.toString().length > roundedResult.length) {
-                resultBox.textContent = `${roundedResult} (5dp)`
+            else if(result.toString().length > rounded.length) {
+                resultBox.textContent = `${roundedResult} (${decimalPlace}dp)`
                 previousCalculation = true
                 previousValueOne = result
                 valueOne = roundedResult
@@ -367,9 +405,11 @@ function operate(){
     
         else if(previousValueOperator === 'multiply') {
             result = multiply()
-            roundedResult = result.toFixed(5)
-            if(result.toString().length > roundedResult.length) {
-                resultBox.textContent = `${roundedResult} (5dp)`
+            rounded = result.toFixed(5)
+            roundedResult = Number(rounded)
+            const decimalPlace = ((roundedResult.toString().length) - 2) <= 0 ? 0 : (roundedResult.toString().length) - 2
+            if(result.toString().length > rounded.length) {
+                resultBox.textContent = `${roundedResult} (${decimalPlace}dp)`
                 previousCalculation = true
                 previousValueOne = result
                 valueOne = roundedResult
@@ -390,9 +430,11 @@ function operate(){
     
         else if(previousValueOperator === 'subtract') {
             result = subtract()
-            roundedResult = result.toFixed(5)
-            if(result.toString().length > roundedResult.length) {
-                resultBox.textContent = `${roundedResult} (5dp)`
+            rounded = result.toFixed(5)
+            roundedResult = Number(rounded)
+            const decimalPlace = ((roundedResult.toString().length) - 2) <= 0 ? 0 : (roundedResult.toString().length) - 2
+            if(result.toString().length > rounded.length) {
+                resultBox.textContent = `${roundedResult} (${decimalPlace}dp)`
                 previousCalculation = true
                 previousValueOne = result
                 valueOne = roundedResult
@@ -412,9 +454,11 @@ function operate(){
         }
         else if(previousValueOperator === 'plus') {
             result = plus()
-            roundedResult = result.toFixed(5)
-            if(result.toString().length > roundedResult.length) {
-                resultBox.textContent = `${roundedResult} (5dp)`
+            rounded = result.toFixed(5)
+            roundedResult = Number(rounded)
+            const decimalPlace = ((roundedResult.toString().length) - 2) <= 0 ? 0 : (roundedResult.toString().length) - 2
+            if(result.toString().length > rounded.length) {
+                resultBox.textContent = `${roundedResult} (${decimalPlace}dp)`
                 previousCalculation = true
                 previousValueOne = result
                 valueOne = roundedResult
@@ -437,10 +481,12 @@ function operate(){
     else {
         if(valueOperator === 'divide') {
             result = divide()
-            roundedResult = result.toFixed(5)
+            rounded = result.toFixed(5)
+            roundedResult = Number(rounded)
+            const decimalPlace = ((roundedResult.toString().length) - 2) <= 0 ? 0 : (roundedResult.toString().length) - 2
             // If a user divides by 0 they will get a snarky comment
             if(valueOne == 0 || valueTwo == 0) {
-                resultBox.textContent = 'What do you think lol'
+                resultBox.textContent = '0, duh'
                 previousCalculation = true
                 previousValueOne = 0
                 previousValueTwo = valueTwo
@@ -450,8 +496,8 @@ function operate(){
                 valueOperator = 'None'
                 console.log(valueOne, valueTwo, valueOperator, previousValueOne, previousValueTwo, previousValueOperator)
             }
-            else if(result.toString().length > roundedResult.length) {
-                resultBox.textContent = `${roundedResult} (5dp)`
+            else if(result.toString().length > rounded.length) {
+                resultBox.textContent = `${roundedResult} (${decimalPlace}dp)`
                 previousCalculation = true
                 previousValueOne = result
                 previousValueTwo = valueTwo
@@ -478,9 +524,11 @@ function operate(){
     
         else if(valueOperator === 'multiply') {
             result = multiply()
-            roundedResult = result.toFixed(5)
-            if(result.toString().length > roundedResult.length) {
-                resultBox.textContent = `${roundedResult} (5dp)`
+            rounded = result.toFixed(5)
+            roundedResult = Number(rounded)
+            const decimalPlace = ((roundedResult.toString().length) - 2) <= 0 ? 0 : (roundedResult.toString().length) - 2
+            if(result.toString().length > rounded.length) {
+                resultBox.textContent = `${roundedResult} (${decimalPlace}dp)`
                 previousCalculation = true
                 previousValueOne = result
                 previousValueTwo = valueTwo
@@ -505,9 +553,11 @@ function operate(){
     
         else if(valueOperator === 'subtract') {
             result = subtract()
-            roundedResult = result.toFixed(5)
-            if(result.toString().length > roundedResult.length) {
-                resultBox.textContent = `${roundedResult} (5dp)`
+            rounded = result.toFixed(5)
+            roundedResult = Number(rounded)
+            const decimalPlace = ((roundedResult.toString().length) - 2) <= 0 ? 0 : (roundedResult.toString().length) - 2
+            if(result.toString().length > rounded.length) {
+                resultBox.textContent = `${roundedResult} (${decimalPlace}dp)`
                 previousCalculation = true
                 previousValueOne = result
                 previousValueTwo = valueTwo
@@ -531,9 +581,11 @@ function operate(){
         }
         else if(valueOperator === 'plus') {
             result = plus()
-            roundedResult = result.toFixed(5)
-            if(result.toString().length > roundedResult.length) {
-                resultBox.textContent = `${roundedResult} (5dp)`
+            rounded = result.toFixed(5)
+            roundedResult = Number(rounded)
+            const decimalPlace = ((roundedResult.toString().length) - 2) <= 0 ? 0 : (roundedResult.toString().length) - 2
+            if(result.toString().length > rounded.length) {
+                resultBox.textContent = `${roundedResult} (${decimalPlace}dp)`
                 previousCalculation = true
                 previousValueOne = result
                 previousValueTwo = valueTwo
