@@ -125,6 +125,7 @@ button {
     background-color: rgb(74, 74, 74);
     color: white;
     font-size: 20px;
+    cursor: pointer;
 }
 
 button:hover {
@@ -143,7 +144,7 @@ a:link {
 }
 
 a:visited {
-    color: rgb(230, 138, 0);
+    color: rgb(179, 107, 0);
     text-decoration: none;
 }
 
